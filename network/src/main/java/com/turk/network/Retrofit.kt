@@ -18,20 +18,6 @@ import retrofit2.Call
 var generalErrorImplementation = GeneralErrorImplementation()
 
 @Suppress("unused")
-fun <T, R> Call<T>.requestTransformBlocking(transform: (T) -> R): Either<ErrorEntity, R> {
-    return try {
-        val response = execute()
-        when (response.isSuccessful) {
-            true -> Either.Right(transform(response.body()!!))
-            false -> Either.Left(generalErrorImplementation.getHttpErrors(response))
-        }
-    } catch (exception: Throwable) {
-        Either.Left(generalErrorImplementation.getError(exception))
-
-    }
-}
-
-@Suppress("unused")
 fun <T, R> Call<T>.requestBlocking(transform: (T) -> R): Either<ErrorEntity, R> {
     return try {
         val response = execute()
@@ -60,19 +46,19 @@ fun <T, R> Call<T>.requestBlocking(transform: (T) -> R): Either<ErrorEntity, R> 
                 response.errorBody()
                 when (response.isSuccessful) {
                     true -> {
-                        Log.v("adeel true", Thread.currentThread().name)
+                       
                         emit(Either.Right(transform(response.body()!!)))
 
                     }
 
                     false -> {
-                        Log.v("adeel exception", Thread.currentThread().name)
+                       
                         emit(Either.Left(generalErrorImplementation.getHttpErrors(response)))
 
                     }
                 }
             } catch (exception: Throwable) {
-                Log.v("adeel exception", Thread.currentThread().name)
+               
                 emit(Either.Left(generalErrorImplementation.getError(exception)))
 
             }
@@ -82,17 +68,6 @@ fun <T, R> Call<T>.requestBlocking(transform: (T) -> R): Either<ErrorEntity, R> 
 }
 
 
-fun <T> Call<T>.requestBlocking(): Either<ErrorEntity, T> {
-    return try {
-        val response = execute()
-        when (response.isSuccessful) {
-            true -> Either.Right((response.body()!!))
-            false -> Either.Left(generalErrorImplementation.getHttpErrors(response))
-        }
-    } catch (exception: Throwable) {
-        Either.Left(generalErrorImplementation.getError(exception))
-    }
-}
 
 
 

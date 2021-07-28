@@ -6,6 +6,7 @@ import androidx.lifecycle.lifecycleScope
 import com.turk.common.base.BaseFragment
 import com.turk.common.base.BaseViewModel
 import com.turk.common.base.GeneralAdapter
+import com.turk.common.error.ErrorEntity
 import com.turk.common.extension.fault
 import com.turk.dtos.footballmatch.FootBallMatch
 import com.turk.footballmatch.BR
@@ -52,6 +53,15 @@ class FootballMatchListFragment : BaseFragment<FootballMatchState,FootballMatchA
         fault(footballMatchViewModel.errorEntity,::handleFailure)
 
     }
+
+    override fun handleFailure(errorEntity: ErrorEntity?) {
+        super.handleFailure(errorEntity)
+        errorEntity?.run {
+            dispatchIntent(FootballMatchAction.Error(this))
+        }
+
+    }
+
     override fun handleState(state: FootballMatchState) {
 
         when(state){
@@ -60,6 +70,10 @@ class FootballMatchListFragment : BaseFragment<FootballMatchState,FootballMatchA
 
             }
             is FootballMatchState.FootballMatchList->{
+
+                getViewBinding().swipeRefresh.isRefreshing=false
+            }
+            is FootballMatchState.Error->{
 
                 getViewBinding().swipeRefresh.isRefreshing=false
             }

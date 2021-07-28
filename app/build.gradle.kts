@@ -1,7 +1,7 @@
 plugins {
-    id( "com.android.application")
-    id( "kotlin-android")
-    id( "kotlin-kapt")
+    id("com.android.application")
+    id("kotlin-android")
+    id("kotlin-kapt")
 }
 
 android {
@@ -12,16 +12,29 @@ android {
         applicationId = "com.truk.runmockyio"
         versionCode(AppConfig.versionCode)
         versionName(AppConfig.versionName)
-
+        multiDexEnabled = true
     }
     buildTypes {
         getByName("release") {
-            isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
         }
+
+        getByName("debug") {
+            applicationIdSuffix(".debug")
+        }
+
+        create("production") {
+            applicationIdSuffix(".prod")
+        }
+
+        create("development") {
+            applicationIdSuffix(".dev")
+        }
+
+
     }
 
 

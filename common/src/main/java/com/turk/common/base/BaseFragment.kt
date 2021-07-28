@@ -74,7 +74,8 @@ abstract class BaseFragment<STATE : ViewState, ACTION : ViewAction> :
 
 
     // Error handling
-    protected fun handleFailure(errorEntity: ErrorEntity?) {
+    open fun handleFailure(errorEntity: ErrorEntity?) {
+
         showProgress(false, lockScreen = false)
         when (errorEntity) {
             is ErrorEntity.AuthError -> showMessage(

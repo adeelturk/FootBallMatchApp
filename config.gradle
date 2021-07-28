@@ -10,16 +10,45 @@ subprojects {
                     vectorDrawables.useSupportLibrary true
                     multiDexEnabled true
                 }
+                signingConfigs {
+                    debug {
+                        storeFile file("debug.keystore")
+                        keyAlias 'androiddebugkey'
+                        keyPassword 'android'
+                        storePassword 'android'
+                    }
+
+
+                }
 
                 buildTypes {
-                    release {
+                    production {
+
                         buildConfigField "String", "END_POINT", '"https://run.mocky.io/"'
                         resValue "string", "application_name", "Run MockyIo Production"
+                        signingConfig signingConfigs.debug
+                        proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+                    }
+
+                    development {
+
+                        buildConfigField "String", "END_POINT", '"https://run.mocky.io/"'
+                        resValue "string", "application_name", "Run MockyIo Development"
+                        signingConfig signingConfigs.debug
+
+                    }
+                    release {
+
+                        buildConfigField "String", "END_POINT", '"https://run.mocky.io/"'
+                        resValue "string", "application_name", "Run MockyIo "
+                        signingConfig signingConfigs.debug
+                        proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
                     }
 
                     debug {
+
                         buildConfigField "String", "END_POINT", '"https://run.mocky.io/"'
-                        resValue "string", "application_name", "Run MockyIo Development"
+                        resValue "string", "application_name", "Run MockyIo debug"
                     }
                 }
 
