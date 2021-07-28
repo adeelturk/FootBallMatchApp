@@ -9,6 +9,6 @@ sealed class FootballMatchAction:ViewAction{
      object FetchFootballMatchResults : FootballMatchAction()
      data class Error(val error:ErrorEntity) : FootballMatchAction()
      data class DeliverFootballMatchResults(val data:List<FootBallMatch>) : FootballMatchAction()
-     data class OpenDetailsForSelectedFootballMatch(val selectedFootballMatch:FootBallMatch):FootballMatchAction()
+
 
 }
