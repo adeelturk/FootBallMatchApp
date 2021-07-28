@@ -1,0 +1,40 @@
+subprojects {
+    afterEvaluate { project ->
+        if (project.hasProperty('android')) {
+            android {
+                compileSdkVersion(AppConfig.targetSdk)
+                defaultConfig {
+                    minSdkVersion(AppConfig.minSdk)
+                    targetSdkVersion(AppConfig.targetSdk)
+                    testInstrumentationRunner(AppConfig.androidTestInstrumentation)
+                    vectorDrawables.useSupportLibrary true
+                    multiDexEnabled true
+                }
+
+                buildTypes {
+                    release {
+                        buildConfigField "String", "END_POINT", '"https://run.mocky.io/"'
+                        resValue "string", "application_name", "Run MockyIo Production"
+                    }
+
+                    debug {
+                        buildConfigField "String", "END_POINT", '"https://run.mocky.io/"'
+                        resValue "string", "application_name", "Run MockyIo Development"
+                    }
+                }
+
+                viewBinding {
+                    android.buildFeatures.viewBinding = true
+                    android.buildFeatures.dataBinding = true
+                }
+
+
+                kotlinOptions {
+                    jvmTarget = '1.8'
+                }
+            }
+
+        }
+    }
+}
+

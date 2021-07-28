@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/football_match_navigation"
+    app:startDestination="@id/footballMatchListFragment">
+
+    <fragment
+        android:id="@+id/footballMatchListFragment"
+        android:name="com.turk.footballmatch.ui.FootballMatchListFragment"
+        android:label="FootballMatchListFragment"
+        tools:layout="@layout/football_list_fragment"
+        />
+</navigation>

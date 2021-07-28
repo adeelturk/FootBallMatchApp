@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    //errors
+    <string name="failure_network_connection">Cannot connect to the network.
+    </string>
+    <string name="failure_unique_constraint">Adding a duplicate entry in the system sir?</string>
+    <string name="failure_authorization">Don\'t go around places you are not supposed to.</string>
+    <string name="failure_forbidden">You have an access token but you are using it for all the wrong purposes.</string>
+    <string name="failure_unsupportedmedia">The request content type seems to be making problems.</string>
+    <string name="failure_malformedJson">Server responded but in a language alien to us.</string>
+    <string name="failure_illegalStateException">Server responded but in a language alien to us.</string>
+    <string name="failure_internal_server_error">The server committed suicide!</string>
+    <string name="failure_bad_request">Server doesn\'t appreciate the way you speak with it!</string>
+    <string name="failure_android_error">You are trying to do something android doesn\'t like!</string>
+    <string name="failure_not_found">You cannot ask for things you know aren\'t there.</string>
+    <string name="failure_server_error">We dont know what went wrong with the server.</string>
+    <string name="something_went_wrong">Something Went Wrong!!.</string>
+
+    <string name="most_popular">Most Popular</string>
+    <string name="ny_times">New York Times</string>
+
+</resources>
