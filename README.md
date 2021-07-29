@@ -66,5 +66,5 @@ Gradle’s Kotlin DSL is an alternative syntax to the Groovy DSL with an enhance
 A special module within the project to manage dependencies and whatnot.
 
 
-#Helping sources 
+## Helping sources 
 https://proandroiddev.com/multi-flavoured-kotlin-dsl-build-script-for-android-app-2d51577e76fb
