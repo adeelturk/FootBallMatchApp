@@ -18,7 +18,7 @@ import com.turk.footballmatch.viewmodel.FootballMatchViewModel
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
-class FootballMatchListFragment : BaseFragment<FootballMatchState,FootballMatchAction>() {
+class FootballMatchListFragment : BaseFragment<FootballListFragmentBinding,FootballMatchState,FootballMatchAction>() {
 
     private val footballMatchViewModel: FootballMatchViewModel by sharedViewModel()
 
@@ -26,15 +26,13 @@ class FootballMatchListFragment : BaseFragment<FootballMatchState,FootballMatchA
 
     override fun getViewModel(): BaseViewModel<FootballMatchState, FootballMatchAction> =footballMatchViewModel
 
-    private fun  getViewBinding()=binding as FootballListFragmentBinding
-
     private val adapter = GeneralAdapter(BR.match, R.layout.football_match_item, FootBallMatch.DIFF_CALLBACK)
 
     override fun initialize(savedInstanceState: Bundle?) {
 
-        getViewBinding().viewModel = footballMatchViewModel
-        getViewBinding().adapter = adapter
-        getViewBinding().swipeRefresh.setOnRefreshListener {
+        binding.viewModel = footballMatchViewModel
+        binding.adapter = adapter
+        binding.swipeRefresh.setOnRefreshListener {
 
             fetchData()
         }
@@ -66,16 +64,16 @@ class FootballMatchListFragment : BaseFragment<FootballMatchState,FootballMatchA
 
         when(state){
             is FootballMatchState.Loading->{
-                getViewBinding().swipeRefresh.isRefreshing=true
+                binding.swipeRefresh.isRefreshing=true
 
             }
             is FootballMatchState.FootballMatchList->{
 
-                getViewBinding().swipeRefresh.isRefreshing=false
+                binding.swipeRefresh.isRefreshing=false
             }
             is FootballMatchState.Error->{
 
-                getViewBinding().swipeRefresh.isRefreshing=false
+                binding.swipeRefresh.isRefreshing=false
             }
             else->{
 
