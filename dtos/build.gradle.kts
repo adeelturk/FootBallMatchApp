@@ -13,5 +13,7 @@ dependencies {
 
     implementation(AppDependencies.appLibraries)
 
-
+    implementation(AppDependencies.roomLibraries)
+    annotationProcessor( "androidx.room:room-compiler:${Versions.room_version}")
+    kapt("androidx.room:room-compiler:${Versions.room_version}")
 }

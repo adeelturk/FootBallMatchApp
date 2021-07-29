@@ -77,6 +77,12 @@ object AppDependencies {
     private const val circleImageView = "de.hdodenhof:circleimageview:3.1.0"
     //endregion
 
+    // Room
+    private const val roomRuntime =  "androidx.room:room-runtime:${Versions.room_version}"
+
+
+//    annotationProcessor "androidx.room:room-compiler:$room_version"
+//    kapt "android.arch.persistence.room:compiler:1.0.0"
 
     //region Serialization
 
@@ -104,6 +110,9 @@ object AppDependencies {
         add(swiperefreshlayoutX)
     }
 
+    val roomLibraries= arrayListOf<String>().apply {
+        add(roomRuntime)
+    }
 
     val retrofitLibraries=arrayListOf<String>().apply {
 
@@ -143,12 +152,12 @@ object AppDependencies {
     }
 }
 
-//util functions for adding the different type dependencies from build.gradle file
-fun DependencyHandler.kapt(list: List<String>) {
-    list.forEach { dependency ->
-        add("kapt", dependency)
-    }
-}
+////util functions for adding the different type dependencies from build.gradle file
+//fun DependencyHandler.kapt(list: List<String>) {
+//    list.forEach { dependency ->
+//        add("kapt", dependency)
+//    }
+//}
 
 fun DependencyHandler.implementation(list: List<String>) {
     list.forEach { dependency ->

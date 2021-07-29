@@ -29,6 +29,7 @@ object Versions {
     const val espresso = "3.2.0"
     const val fragmentTesting = "1.3.1"
     const val dex_version = "2.0.1"
+    const val room_version="2.1.0"
 
 
 }
