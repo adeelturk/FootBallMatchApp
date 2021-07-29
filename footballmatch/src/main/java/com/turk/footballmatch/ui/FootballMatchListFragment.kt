@@ -2,12 +2,15 @@ package com.turk.footballmatch.ui
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.lifecycleScope
 import com.turk.common.base.BaseFragment
 import com.turk.common.base.BaseViewModel
 import com.turk.common.base.GeneralAdapter
 import com.turk.common.error.ErrorEntity
 import com.turk.common.extension.fault
+import com.turk.common.extension.observe
+import com.turk.common.livedata.ConnectionLiveData
 import com.turk.dtos.footballmatch.FootBallMatch
 import com.turk.footballmatch.BR
 import com.turk.footballmatch.R
@@ -16,6 +19,7 @@ import com.turk.footballmatch.databinding.FootballListFragmentBinding
 import com.turk.footballmatch.state.FootballMatchState
 import com.turk.footballmatch.viewmodel.FootballMatchViewModel
 import kotlinx.coroutines.flow.collectLatest
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class FootballMatchListFragment : BaseFragment<FootballListFragmentBinding,FootballMatchState,FootballMatchAction>() {
@@ -28,21 +32,24 @@ class FootballMatchListFragment : BaseFragment<FootballListFragmentBinding,Footb
 
     private val adapter = GeneralAdapter(BR.match, R.layout.football_match_item, FootBallMatch.DIFF_CALLBACK)
 
+
+
     override fun initialize(savedInstanceState: Bundle?) {
 
         binding.viewModel = footballMatchViewModel
         binding.adapter = adapter
         binding.swipeRefresh.setOnRefreshListener {
 
-            fetchData()
+            fetchData(footballMatchViewModel.connectionLiveData.value?:true)
         }
 
-        fetchData()
+        fetchData(footballMatchViewModel.connectionLiveData.value?:true)
     }
 
 
-    private fun fetchData(){
-        dispatchIntent(FootballMatchAction.FetchFootballMatchResults)
+
+    private fun fetchData(isOnline:Boolean){
+        dispatchIntent(FootballMatchAction.FetchFootballMatchResults("bc1ce3b7-6ad2-4fef-af6c-08f8865b210e",isOnline))
     }
 
 
@@ -50,6 +57,16 @@ class FootballMatchListFragment : BaseFragment<FootballListFragmentBinding,Footb
         super.attachListeners()
         fault(footballMatchViewModel.errorEntity,::handleFailure)
 
+        observe(footballMatchViewModel.connectionLiveData){isConnected->
+
+            if(!isConnected){
+
+                binding.internetStatusBanner.visibility= View.VISIBLE
+            }else{
+                binding.internetStatusBanner.visibility= View.GONE
+            }
+
+        }
     }
 
     override fun handleFailure(errorEntity: ErrorEntity?) {
@@ -73,6 +90,10 @@ class FootballMatchListFragment : BaseFragment<FootballListFragmentBinding,Footb
             }
             is FootballMatchState.Error->{
 
+                if(state.error is ErrorEntity.NetworkConnection ){
+                    binding.internetStatusBanner.visibility= View.VISIBLE
+                    fetchData(false)
+                }
                 binding.swipeRefresh.isRefreshing=false
             }
             else->{

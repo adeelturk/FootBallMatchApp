@@ -54,7 +54,7 @@ In this module we are presenting the applications main functionality where we ar
 
 
 ## footballMatchRepository
-This module contains footballMatch Repo layer to fetch data from any source
+This module contains footballMatch Repo layer to fetch data from any source either remote or local dat source based on network availability
 ###### Purpose
 1. populating business module
 

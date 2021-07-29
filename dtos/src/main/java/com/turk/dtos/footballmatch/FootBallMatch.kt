@@ -2,11 +2,16 @@ package com.turk.dtos.footballmatch
 
 import androidx.annotation.NonNull
 import androidx.recyclerview.widget.DiffUtil
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
 
 data class FootBallMatch(val teamA:FootballTeam,
                          val teamB:FootballTeam,
                          val matchDateTime:FootballMatchDateTime
 ){
+
+
 
     companion object {
 
