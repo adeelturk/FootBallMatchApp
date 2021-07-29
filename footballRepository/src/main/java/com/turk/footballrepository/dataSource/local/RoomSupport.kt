@@ -1,41 +1,37 @@
 package com.turk.footballrepository.dataSource.local
 
+import android.app.Application
 import android.content.Context
 
 import androidx.room.Room
 
 
-class RoomSupport private constructor(cntxt: Context) {
+class RoomSupport(context: Context) {
 
     private val DB_NAME = "footballMatches.db"
-    val database: AppLocalDatabase
-    val context: Context
+    private val database: AppLocalDatabase = Room.databaseBuilder(context.applicationContext,
+            AppLocalDatabase::class.java, DB_NAME)
+            .allowMainThreadQueries().build()
 
-    init {
-        this.context = cntxt
-        this.database = Room.databaseBuilder(context.applicationContext,
-                AppLocalDatabase::class.java, DB_NAME)
-                .allowMainThreadQueries().build()
-    }
+    fun getFootBallMatchDao()= database.footBallMatchDao
 
 
-
-    companion object {
-        private var instance: RoomSupport? = null
-
-        fun createInstance(context: Context) {
-            if (instance != null) {
-                println("Room Instance already exist overriding")
-            }
-            instance = RoomSupport(context)
-        }
-
-        fun getInstance(): RoomSupport {
-            if (instance == null) {
-                throw IllegalArgumentException("Roomdatabase not initialied ..")
-            }
-            return instance!!
-        }
-    }
+//    companion object {
+//        private var instance: RoomSupport? = null
+//
+//        fun createInstance(context: Context) {
+//            if (instance != null) {
+//                println("Room Instance already exist overriding")
+//            }
+//            instance = RoomSupport(context)
+//        }
+//
+//        fun getInstance(): RoomSupport {
+//            if (instance == null) {
+//                throw IllegalArgumentException("Roomdatabase not initialied ..")
+//            }
+//            return instance!!
+//        }
+//    }
 
 }

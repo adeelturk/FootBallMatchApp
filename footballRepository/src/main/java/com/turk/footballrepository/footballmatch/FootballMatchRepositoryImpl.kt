@@ -8,8 +8,8 @@ import kotlinx.coroutines.flow.Flow
 
 class FootballMatchRepositoryImpl(private val footballMatchDataSource: FootballMatchDataSourceImpl) :FootballMatchRepository {
 
-    override  fun getFootballMatches(): Flow<Either<ErrorEntity, List<FootBallMatch>>> {
+    override  fun getFootballMatches(date:String,isOnline:Boolean): Flow<Either<ErrorEntity, List<FootBallMatch>>> {
 
-        return footballMatchDataSource.getFootballMatches()
+        return footballMatchDataSource.getFootballMatches(date,isOnline)
     }
 }

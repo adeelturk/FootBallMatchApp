@@ -6,5 +6,5 @@ import org.koin.dsl.module
 
 
 val footballMatchDependencies = module {
-    viewModel { FootballMatchViewModel(get()) }
+    viewModel { FootballMatchViewModel(get(),get()) }
 }

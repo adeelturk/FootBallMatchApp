@@ -9,10 +9,12 @@ import com.turk.footballrepository.footballmatch.FootballMatchRepositoryImpl
 import kotlinx.coroutines.flow.Flow
 
 class FootballMatchUseCase(private val footballMatchRepo:FootballMatchRepositoryImpl):
-    BaseUseCase<List<FootBallMatch>,BaseUseCase.None> (){
+    BaseUseCase<List<FootBallMatch>,FootballMatchUseCaseParams> (){
 
-    override suspend fun run(param: None): Flow<Either<ErrorEntity,List<FootBallMatch>>> {
+    override suspend fun run(param: FootballMatchUseCaseParams): Flow<Either<ErrorEntity,List<FootBallMatch>>> {
 
-        return footballMatchRepo.getFootballMatches()
+        return footballMatchRepo.getFootballMatches(param.date,param.isOnline)
     }
 }
+
+data class FootballMatchUseCaseParams(val date:String,val isOnline:Boolean)
