@@ -28,11 +28,11 @@ import kotlinx.coroutines.launch
  * base class for all Fragments provide common functionality
  *
  */
-abstract class BaseFragment<STATE : ViewState, ACTION : ViewAction> :
+abstract class BaseFragment<ViewBinding:ViewDataBinding,STATE : ViewState, ACTION : ViewAction> :
     Fragment() {
 
 
-    protected var binding: ViewDataBinding? = null
+    protected lateinit var binding: ViewBinding
     protected var progressBar: ProgressBar? = null
 
 
@@ -120,8 +120,8 @@ abstract class BaseFragment<STATE : ViewState, ACTION : ViewAction> :
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, layoutResourceId(), container, false)
-        binding!!.lifecycleOwner = viewLifecycleOwner
-        return binding!!.root
+        binding.lifecycleOwner = viewLifecycleOwner
+        return binding.root
     }
 
 
