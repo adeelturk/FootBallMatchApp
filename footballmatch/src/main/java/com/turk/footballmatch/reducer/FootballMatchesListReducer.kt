@@ -29,13 +29,20 @@ class FootballMatchesListReducer: Reducer<FootballMatchState, FootballMatchActio
            is FootballMatchAction.Error->{
                stateOnError(action)
            }
+           is FootballMatchAction.OpenDetailsForSelectedFootballMatch->{
 
+               stateToShowDetailsForFootballMatch(action)
+           }
            else -> {
                currentState
            }
         }
     }
 
+    private fun stateToShowDetailsForFootballMatch( action: FootballMatchAction.OpenDetailsForSelectedFootballMatch): FootballMatchState {
+
+        return FootballMatchState.SelectedFootballMatch(action.selectedFootballMatch)
+    }
 
     private fun stateForFetchingResults(): FootballMatchState {
 

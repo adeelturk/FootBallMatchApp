@@ -8,5 +8,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface FootballMatchDataSource {
 
-     fun getFootballMatches(date:String,isOnline:Boolean):Flow<Either<ErrorEntity,List<FootBallMatch>>>
+     fun getFootballMatches(date:String,isOnline:Boolean,shouldClearCache:Boolean):Flow<Either<ErrorEntity,List<FootBallMatch>>>
 }

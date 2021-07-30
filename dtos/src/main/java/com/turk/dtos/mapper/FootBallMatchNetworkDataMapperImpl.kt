@@ -28,6 +28,18 @@ class FootBallMatchNetworkDataMapperImpl : DataMapper<FootballMatchResponse,Foot
 
     }
 
+    fun getListCache(cachedList:List<FootballMatchResponse>,dataList:List<FootballMatchResponse>):List<FootballMatchResponse>{
+
+
+        return dataList.mapIndexed { index, footballMatchResponse ->
+
+            footballMatchResponse.id=index
+            footballMatchResponse
+        }
+
+
+    }
+
     private fun getTeamScores( score:String):Pair<String,String>{
 
        val scoresArray= score.split("-")
@@ -42,7 +54,7 @@ class FootBallMatchNetworkDataMapperImpl : DataMapper<FootballMatchResponse,Foot
 
     private fun getDate(dateTime:String):String{
 
-        val outputPattern = "dddd dd mmm"
+        val outputPattern = "EEE dd MMMM"
         val inputPattern = "dd MMMM yyyy HH:mm"
         val inputFormat = SimpleDateFormat(inputPattern)
         val outputFormat = SimpleDateFormat(outputPattern)

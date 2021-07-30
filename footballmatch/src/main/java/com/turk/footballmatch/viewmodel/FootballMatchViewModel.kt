@@ -22,13 +22,14 @@ class FootballMatchViewModel(private val getFootballMatchUseCase: FootballMatchU
     ) {
 
 
+
     override fun processAction(action:FootballMatchAction) {
         super.processAction(action)
         when(action){
 
             is FootballMatchAction.FetchFootballMatchResults->{
 
-                fetchFootballMatchList(action.date,action.isOnline)
+                fetchFootballMatchList(action.date,action.secondDate,action.isOnline)
             }
             else -> {}
         }
@@ -38,9 +39,21 @@ class FootballMatchViewModel(private val getFootballMatchUseCase: FootballMatchU
     val footballMatchList: LiveData<List<FootBallMatch>>
         get() = _footballMatchList
 
-   private fun fetchFootballMatchList(date:String,isOnline:Boolean) {
+   private fun fetchFootballMatchList(date:String,secondDate:String,isOnline:Boolean) {
 
-        getFootballMatchUseCase(viewModelScope = viewModelScope, FootballMatchUseCaseParams(date,isOnline)) {
+        getFootballMatchUseCase(viewModelScope = viewModelScope, FootballMatchUseCaseParams(date,isOnline,true)) {
+            it.either(::handleFailure) {dataList->
+
+                fetchSecondFootballMatchList(secondDate,isOnline)
+            }
+        }
+
+
+    }
+
+    private fun fetchSecondFootballMatchList(date:String,isOnline:Boolean) {
+
+        getFootballMatchUseCase(viewModelScope = viewModelScope, FootballMatchUseCaseParams(date,isOnline,false)) {
             it.either(::handleFailure) {dataList->
 
                 dispatch(FootballMatchAction.DeliverFootballMatchResults(dataList))
@@ -50,5 +63,7 @@ class FootballMatchViewModel(private val getFootballMatchUseCase: FootballMatchU
 
 
     }
+
+
 }
 
