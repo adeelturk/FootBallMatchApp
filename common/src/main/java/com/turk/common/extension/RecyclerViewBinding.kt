@@ -6,6 +6,8 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collectLatest
 
 
 enum class MarginStrategy {
@@ -30,6 +32,24 @@ fun <T> RecyclerView.bindRecyclerViewAdapter(adapter: ListAdapter<*, *>, list: L
 
     }
 }
+
+/*@BindingAdapter(value = ["showVerticalList", "items"], requireAll = false)
+fun <T> RecyclerView.bindRecyclerViewAdapter(adapter: ListAdapter<*, *>, stateFlow: StateFlow<List<T>>?) {
+    this.run {
+        this.configureVerticalList(adapter, 10)
+        this.adapter = adapter
+    }
+    if (this.adapter is ListAdapter<*, *>) {
+
+
+        stateFlow.collectLatest {
+
+            (adapter as ListAdapter<T, *>).submitList(it)
+        }
+
+
+    }
+}*/
 
 fun <T, VH : RecyclerView.ViewHolder> RecyclerView.configureVerticalList(
     adapter: ListAdapter<T, VH>,

@@ -74,6 +74,14 @@ class FootballMatchListFragment : BaseFragment<FootballListFragmentBinding,Footb
             }
 
         }
+
+        launchOnLifecycleScope {
+
+            footballMatchViewModel.footballMatchListState.collectLatest {
+
+                adapter.submitList(it)
+            }
+        }
     }
 
     override fun handleFailure(errorEntity: ErrorEntity?) {

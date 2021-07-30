@@ -35,15 +35,16 @@ class FootballMatchViewModel(private val getFootballMatchUseCase: FootballMatchU
         }
     }
 
-    private val _footballMatchList = MutableLiveData<List<FootBallMatch>>()
-    val footballMatchList: LiveData<List<FootBallMatch>>
-        get() = _footballMatchList
+
+
+    private val _footballMatchListState= MutableStateFlow(ArrayList<FootBallMatch>())
+    val footballMatchListState:StateFlow<List<FootBallMatch>> = _footballMatchListState
 
    private fun fetchFootballMatchList(date:String,secondDate:String,isOnline:Boolean) {
 
         getFootballMatchUseCase(viewModelScope = viewModelScope, FootballMatchUseCaseParams(date,isOnline,true)) {
             it.either(::handleFailure) {dataList->
-
+                _footballMatchListState.value=dataList as ArrayList<FootBallMatch>
                 fetchSecondFootballMatchList(secondDate,isOnline)
             }
         }
@@ -57,7 +58,7 @@ class FootballMatchViewModel(private val getFootballMatchUseCase: FootballMatchU
             it.either(::handleFailure) {dataList->
 
                 dispatch(FootballMatchAction.DeliverFootballMatchResults(dataList))
-                _footballMatchList.postValue(dataList)
+                _footballMatchListState.value=dataList as ArrayList<FootBallMatch>
             }
         }
 

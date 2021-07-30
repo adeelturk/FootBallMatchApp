@@ -58,7 +58,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/transperent_color"
-            app:items="@{viewModel.footballMatchList}"
+
             android:layout_margin="10dp"
             app:showVerticalList="@{adapter}"
             tools:listitem="@layout/football_match_item" />
