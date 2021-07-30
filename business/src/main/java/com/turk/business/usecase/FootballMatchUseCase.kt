@@ -13,8 +13,8 @@ class FootballMatchUseCase(private val footballMatchRepo:FootballMatchRepository
 
     override suspend fun run(param: FootballMatchUseCaseParams): Flow<Either<ErrorEntity,List<FootBallMatch>>> {
 
-        return footballMatchRepo.getFootballMatches(param.date,param.isOnline)
+        return footballMatchRepo.getFootballMatches(param.date,param.isOnline,param.shouldClearCache)
     }
 }
 
-data class FootballMatchUseCaseParams(val date:String,val isOnline:Boolean)
+data class FootballMatchUseCaseParams(val date:String,val isOnline:Boolean,val shouldClearCache:Boolean)

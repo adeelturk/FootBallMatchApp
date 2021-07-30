@@ -15,9 +15,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:background="@drawable/round_corner_white"
-        >
+        android:background="@color/white"
+        android:padding="8dp">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView3"
@@ -133,37 +132,48 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/idteamAName"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:gravity="end"
-                android:maxLength="3"
-                android:text="@{match.teamA.teamName}"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@+id/teamB_image"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/teamA_image" />
 
-            <TextView
-                android:id="@+id/idteamBName"
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/temCOnt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:gravity="start"
-                android:paddingStart="4dp"
-                android:maxLength="3"
-                android:text="@{match.teamB.teamName}"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textColor="@color/black"
-                android:textStyle="bold"
+                android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/teamA_image"
-                app:layout_constraintTop_toBottomOf="@+id/teamB_image" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/teamA_image">
 
+
+                <TextView
+                    android:id="@+id/idteamAName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="end"
+                    android:layout_weight="1"
+                    android:padding="2dp"
+                    android:paddingEnd="4dp"
+                    android:text="@{match.teamA.teamName}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:id="@+id/idteamBName"
+                    android:layout_width="0dp"
+                    android:padding="2dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:paddingStart="4dp"
+                    android:text="@{match.teamB.teamName}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
             <TextView
                 android:id="@+id/matchDate"
@@ -177,7 +187,8 @@
                 android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/idteamAName" />
+                app:layout_constraintTop_toBottomOf="@+id/temCOnt" />
+
 
 
             <TextView
@@ -189,9 +200,9 @@
                 android:gravity="center"
                 android:padding="4dp"
                 android:text="@{match.matchDateTime.time}"
-                android:textStyle="bold"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textColor="@color/black"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.turk.common.base.BaseFragment
 import com.turk.common.base.BaseViewModel
 import com.turk.common.base.GeneralAdapter
@@ -38,6 +39,12 @@ class FootballMatchListFragment : BaseFragment<FootballListFragmentBinding,Footb
 
         binding.viewModel = footballMatchViewModel
         binding.adapter = adapter
+        adapter.clickListener={footballMatch,View->
+
+            dispatchIntent(FootballMatchAction.OpenDetailsForSelectedFootballMatch(footballMatch))
+        }
+
+
         binding.swipeRefresh.setOnRefreshListener {
 
             fetchData(footballMatchViewModel.connectionLiveData.value?:true)
@@ -49,7 +56,7 @@ class FootballMatchListFragment : BaseFragment<FootballListFragmentBinding,Footb
 
 
     private fun fetchData(isOnline:Boolean){
-        dispatchIntent(FootballMatchAction.FetchFootballMatchResults("bc1ce3b7-6ad2-4fef-af6c-08f8865b210e",isOnline))
+        dispatchIntent(FootballMatchAction.FetchFootballMatchResults("23745f3a-5eaa-43cf-ab46-737eb273596b","bc1ce3b7-6ad2-4fef-af6c-08f8865b210e",isOnline))
     }
 
 
@@ -95,6 +102,10 @@ class FootballMatchListFragment : BaseFragment<FootballListFragmentBinding,Footb
                     fetchData(false)
                 }
                 binding.swipeRefresh.isRefreshing=false
+            }
+            is FootballMatchState.SelectedFootballMatch->{
+                findNavController().navigate(R.id.action_footballMatchListFragment_to_footBallMatchDetailScreen)
+
             }
             else->{
 

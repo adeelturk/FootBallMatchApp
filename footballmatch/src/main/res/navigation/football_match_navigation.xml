@@ -10,5 +10,15 @@
         android:name="com.turk.footballmatch.ui.FootballMatchListFragment"
         android:label="FootballMatchListFragment"
         tools:layout="@layout/football_list_fragment"
+        >
+        <action
+            android:id="@+id/action_footballMatchListFragment_to_footBallMatchDetailScreen"
+            app:destination="@id/footBallMatchDetailScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/footBallMatchDetailScreen"
+        android:name="com.turk.footballmatch.ui.FootBallMatchDetailScreen"
+        android:label="FootBallMatchDetailScreen"
+        tools:layout="@layout/footballmatch_detail_fragment"
         />
 </navigation>

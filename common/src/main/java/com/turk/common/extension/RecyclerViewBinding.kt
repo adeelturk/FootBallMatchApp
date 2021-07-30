@@ -22,7 +22,7 @@ enum class MarginStrategy {
 @BindingAdapter(value = ["showVerticalList", "items"], requireAll = false)
 fun <T> RecyclerView.bindRecyclerViewAdapter(adapter: ListAdapter<*, *>, list: List<T>?) {
     this.run {
-        this.configureVerticalList(adapter, 0)
+        this.configureVerticalList(adapter, 10)
         this.adapter = adapter
     }
     if (this.adapter is ListAdapter<*, *>) {
